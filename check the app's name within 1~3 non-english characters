@@ -9,22 +9,20 @@ def is_english_3other(input_name):
     if non_ascii > 3:
         return False
     else: return True
-    
-is_english_3other_list = []
-for input_surce in app_name_list:
-    if is_english_3other(input_surce) == False:
-        is_english_3other_list.append(input_surce)
 
+    
 data_cleaned_android = removing_duplicate_app(android)
 app_name_list = []
+is_english_3other_list = []
 non_eng_app = []
+
 for app in data_cleaned_android:
     app_name = app[0]
     app_name_list.append(app_name)
 
-for app_name in app_name_list:
-    if is_english(app_name) == False:
-        non_eng_app.append(app_name)
+for input_surce in app_name_list:
+    if is_english_3other(input_surce) == False:
+        is_english_3other_list.append(input_surce)
         
         
 '''
