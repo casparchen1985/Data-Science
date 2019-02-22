@@ -6,16 +6,20 @@ def removing_duplicate_app(data_set):
     reviews_max = {}
     clean_data = []
     already_added = []
+    if data_set == 'android':
+        name = app[0]
+        n_reviews = float(app[3])
+    else:
+        print('Wrong Data Set')
+        return []
     
-    for app in data_set:
-        name = app[0]        # Find duplicate / unique app
+    for app in data_set:    # Find duplicate / unique app
         if name in unique_apps:
             duplicate_apps.append(name)
         else:
             unique_apps.append(name)
         
-        n_reviews = float(app[3])         # keep max reviews count
-        if name in reviews_max and reviews_max[name] < n_reviews:
+        if name in reviews_max and reviews_max[name] < n_reviews:    # keep max reviews count
             reviews_max[name] = n_reviews
         elif name not in reviews_max:
             reviews_max[name] = n_reviews
