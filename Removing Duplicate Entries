@@ -1,0 +1,91 @@
+# Removing Duplicate Entries
+
+def removing_duplicate_app(data_set):
+    duplicate_apps = []
+    unique_apps = []
+    reviews_max = {}
+    clean_data = []
+    already_added = []
+    
+    for app in data_set:
+        name = app[0]        # Find duplicate / unique app
+        if name in unique_apps:
+            duplicate_apps.append(name)
+        else:
+            unique_apps.append(name)
+        
+        n_reviews = float(app[3])         # keep max reviews count
+        if name in reviews_max and reviews_max[name] < n_reviews:
+            reviews_max[name] = n_reviews
+        elif name not in reviews_max:
+            reviews_max[name] = n_reviews
+
+    for app in data_set:
+        name = app[0]        # make a new list for clean data
+        if (reviews_max[name] == n_reviews) and (name not in already_added):
+            clean_data.append(app)
+            already_added.append(name) # make sure this is inside the if block
+
+    return clean_data
+
+'''
+def convert_to_int(source):
+    try:
+        float(source)
+        return True
+    except ValueError:
+        return False
+
+def remove_from_pure_data(pure_data):
+    to_be_del = []
+    for row_index in range(len(pure_data)):
+        target_row = pure_data[row_index]
+        target_element = target_row[1]
+        convert_result = convert_to_int(target_element)
+        if convert_result == True and len(target_row) != len(pure_data):
+            to_be_del.append(target_row)
+
+    for incorrect_row in to_be_del:
+        for target_row in pure_data:
+            if incorrect_row == target_row:
+                pure_data.remove(target_row)
+                try:
+                    if pure_data.index(incorrect_row):
+                        print('Look here again')
+                except ValueError:
+                    pass
+                    print('No garbage data')
+                    return pure_data
+                else:
+                    print('Delete Completed')
+                    return pure_data
+
+    # Only save the higher reviewed data
+    # Save all unique data into a dictionary
+
+    dic_app_count = {}
+    dic_app_data = {}
+
+    for app in pure_data_android:
+        name = app[0]
+        new_review_count = app[3] #str
+    
+        if new_review_count.isdigit() == False:    # has to be str
+            number = float(new_review_count[0:-2])
+            unit = new_review_count[-1]
+            if unit == 'M':
+                unit = 1000000
+            elif unit == 'B':
+                unit = 1000000000
+            app[3] = str(int(number * unit))
+            new_review_count = app[3]
+        
+        if name not in dic_app_count:
+            dic_app_count[name]=1
+            dic_app_data[name] = app
+        else:
+            app_data = dic_app_data[name]
+            dic_app_count[name] += 1
+            if  int(app[3]) > int(app_data[3]):
+                dic_app_data[name] = app       
+'''
