@@ -1,0 +1,20 @@
+# Finf and isolate the free apps
+
+def find_free_app(input_list):
+    if input_list[0][0].isdigit() == False: # get first row data to recognize Android platfrom
+        non_free_app = []
+        free_app = []
+        for row in input_list:
+            price = row[7]
+            if price == '0': free_app.append(row)
+            else: non_free_app.append(row)
+        return free_app
+
+    elif input_list[0][0].isdigit() == True: # get first row data to recognize iOS platfrom
+        non_free_app = []
+        free_app = []
+        for row in input_list:
+            price = row[4]
+            if price == '0.0': free_app.append(row)
+            else: non_free_app.append(row)
+        return free_app
