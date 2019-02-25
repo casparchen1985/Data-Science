@@ -1,0 +1,11 @@
+# check the app's name within 1~3 non-english characters
+
+def is_english_3other(input_name):
+    non_ascii = 0
+    for alphabet in input_name:
+        if ord(alphabet) > 127:
+            non_ascii += 1
+    
+    if non_ascii > 3:
+        return False
+    else: return True
