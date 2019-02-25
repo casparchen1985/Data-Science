@@ -1,0 +1,82 @@
+# Removing Duplicate Entries
+
+def removing_duplicate_app(data_set):
+    duplicate_apps = []
+    unique_apps = []
+    reviews_max = {}
+    clean_data = []
+    already_added = []
+    
+    #recognize the data set of Android platfrom
+    if data_set[0][0].isdigit() == False :    
+        for app in data_set:    
+            name = app[0]
+            try:
+                n_reviews = float(app[3])    # Process those 'str' data in column of reviews
+            except ValueError:
+                number = float(app[3][0:-2])
+                unit = app[3][-1]
+                if unit == 'M':
+                    unit = 1000000
+                elif unit == 'B':
+                    unit = 1000000000
+                app[3] = float(number * unit)
+                n_reviews = app[3]
+
+            if name in unique_apps:    # Find duplicate / unique app
+                duplicate_apps.append(name)
+                unique_apps.remove(name)
+            else:
+                unique_apps.append(name)
+            
+            # keep max reviews count
+            if name in reviews_max and reviews_max[name] < n_reviews:    
+                reviews_max[name] = n_reviews
+            elif name not in reviews_max:
+                reviews_max[name] = n_reviews
+
+        for app in data_set:    # make a new list for clean data
+            name = app[0]        
+            clean_data.append(app)
+            if (reviews_max[name] == n_reviews) and (name not in already_added):
+                already_added.append(name) # make sure this is inside the if block
+
+        return clean_data
+    
+    #recognize the data set of ios platfrom
+    elif data_set[0][0].isdigit() == True :   
+        
+        for app in data_set:    
+            name = app[1]
+            try:    # Process those 'str' data in column of reviews
+                n_reviews = float(app[5])    
+            except ValueError:
+                number = float(app[5][0:-2])
+                unit = app[5][-1]
+                if unit == 'M':
+                    unit = 1000000
+                elif unit == 'B':
+                    unit = 1000000000
+                app[5] = float(number * unit)
+                n_reviews = app[5]
+
+            if name in unique_apps:    # Find duplicate / unique app
+                duplicate_apps.append(name)
+                unique_apps.remove(name)
+            else:
+                unique_apps.append(name)
+            
+            # keep max reviews count
+            if name in reviews_max and reviews_max[name] < n_reviews:    
+                reviews_max[name] = n_reviews
+            elif name not in reviews_max:
+                reviews_max[name] = n_reviews
+
+            
+        for app in data_set:    # make a new list for clean data
+            name = app[1]
+            clean_data.append(app)
+            if (reviews_max[name] == n_reviews) and (name not in already_added):
+                already_added.append(name) # make sure this is inside the if block
+
+        return clean_data
